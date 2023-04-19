@@ -1,0 +1,48 @@
+<html>
+    <head>
+        <title></title>
+    </head>
+    <body>
+        <input type="button" value="test" onclick="ajax();"/>
+
+        <video controls autoplay width=800>
+            <!--            <source src="./video-h265.mkv" type="video/mp4" >-->
+            <source id="source-id" src="file path here">
+        </video>
+
+        <script type="text/javascript">
+            const log = console.log.bind(console);
+
+            function ajax() {
+                const xhr = new XMLHttpRequest();
+                // xhr.open("get", "Big_Buck_Bunny_360_10s_1MB.mp4", true);
+                xhr.open("get", "video-h265.mkv", true);
+                xhr.responseType = 'blob';
+                xhr.send();
+                xhr.onreadystatechange = () => {
+                    if (xhr.readyState === 4)
+                    {
+                        if (xhr.status === 200)
+                        {
+                            log(xhr);
+                            let blob = xhr.response;
+                            const fileReader = new FileReader();
+                            fileReader.readAsDataURL(blob);
+                            log(333, fileReader);
+                            fileReader.onload = () => {
+                                let source = document.getElementById('source-id');
+                                log(source);
+                                source.src = fileReader.result;
+                                // const videoEl = document.createElement('video');
+                                // videoEl.src = fileReader.result;
+                                // videoEl.controls = true;
+                                // videoEl.type = "video/mp4";
+                                // document.body.appendChild(videoEl);
+                            };
+                        }
+                    }
+                };
+            }
+        </script>
+    </body>
+</html>

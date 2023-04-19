@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Title</title>
+    </head>
+    <body>
+        <script>
+            var s = './h265.mp4';
+            fetch(s).then(
+                (res) => {
+                    console.log(11, res);
+                    return res.blob();
+                }
+            ).then((blob) => {
+                console.log(2222, blob);
+                const fileReader = new FileReader();
+                fileReader.readAsDataURL(blob);
+                console.log(333, fileReader);
+                fileReader.onload = () => {
+                    const videoEl = document.createElement('video');
+                    videoEl.src = fileReader.result;
+                    videoEl.controls = true;
+                    document.body.appendChild(videoEl);
+                };
+            });
+
+        </script>
+    </body>
+</html>

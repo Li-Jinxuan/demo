@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Title</title>
+        <style>
+            body {
+                font-family: sans-serif;
+                color: #fff;
+                background: #333;
+            }
+
+            a {
+                color: #ccc;
+            }
+        </style>
+    </head>
+    <body>
+        <div>
+            <video id="v" width="320" height="180" muted>
+                <source src="https://cloudunder.io/staticfiles/hevcdemo/hevc.mp4" type='video/mp4; codecs="hvc1"'>
+                <source src="https://cloudunder.io/staticfiles/hevcdemo/webm.webm" type="video/webm">
+                <source src="https://cloudunder.io/staticfiles/hevcdemo/h264.mp4" type='video/mp4; codecs="avc1"'>
+            </video>
+            <video width="400" height="250" controls>
+                <source src="./h265.mp4" xtype='video/hevc; codecs="hevc, aac"'>
+            </video>
+        </div>
+
+        <div>
+            <button id="bplay" type="button">Play</button>
+            <button id="bpause" type="button">Pause</button>
+        </div>
+
+        <ul>
+            <li>HEVC support: <i id="sHEVC"></i></li>
+            <li>WebM support: <i id="sWebM"></i></li>
+            <li>H.264 support: <i id="sH264"></i></li>
+        </ul>
+
+        <p>Demo by <a href="https://cloudunder.io">Cloud Under</a>. Also see <a href="https://codepen.io/cloudunder/post/hevc-html5-video">article</a>.</p>
+
+
+        <script>
+            const video = document.getElementById('v');
+            const playButton = document.getElementById('bplay');
+            const pauseButton = document.getElementById('bpause');
+
+            playButton.onclick = () => {
+                video.play();
+            };
+
+            pauseButton.onclick = () => {
+                video.pause();
+            };
+
+            // Display format/codec support
+            const can = {
+                hevc: video.canPlayType('video/mp4; codecs="hvc1"'),
+                wemb: video.canPlayType('video/webm'),
+                h264: video.canPlayType('video/mp4;codecs="avc1"'),
+            };
+            document.getElementById('sHEVC').innerText = can.hevc || 'no';
+            document.getElementById('sWebM').innerText = can.wemb || 'no';
+            document.getElementById('sH264').innerText = can.h264 || 'no';
+
+        </script>
+    </body>
+</html>
