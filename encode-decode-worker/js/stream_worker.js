@@ -81,10 +81,6 @@ class pipeline {
     EncodeVideoStream(self, config) {
         return new TransformStream({
             start(controller) {
-                this.seqNo = 0
-                this.keyframeIndex = 0
-                this.deltaframeIndex = 0
-                this.pending_outputs = 0
                 this.encoder = new VideoEncoder({
                     output: (chunk, cfg) => {
                         console.log(144, cfg.decoderConfig)
@@ -95,9 +91,9 @@ class pipeline {
                             const configChunk =
                                 {
                                     type: "config",
-                                    seqNo: this.seqNo,
-                                    keyframeIndex: this.keyframeIndex,
-                                    deltaframeIndex: this.deltaframeIndex,
+                                    seqNo: 0,
+                                    keyframeIndex: 0,
+                                    deltaframeIndex: 0,
                                     timestamp: 0,
                                     pt: 0,
                                     config: decoderConfig
