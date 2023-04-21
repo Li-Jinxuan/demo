@@ -91,9 +91,11 @@ const decodeImage = async imageByteStream => {
     const imageFrame = await imageDecoder.decode({frameIndex: imageIndex})
     const track = imageDecoder.tracks.selectedTrack
     await renderImage(imageFrame, track)
-    pre.textContent = `Frame Count: ${track.frameCount}
-Type: ${imageDecoder.type}
-Repetition Count: ${track.repetitionCount}`
+    pre.textContent = `
+        Frame Count: ${track.frameCount}
+        Type: ${imageDecoder.type}
+        Repetition Count: ${track.repetitionCount}
+        `
 }
 
 const getDimensions = async blob => {
@@ -107,12 +109,6 @@ const getDimensions = async blob => {
 }
 
 const init = async () => {
-    const message = '😔 Your browser does not support the ImageDecoder API.\n\n🚩 Try launching Chrome Canary with the --enable-blink-features=WebCodecs flag.'
-    if (!('ImageDecoder' in window))
-    {
-        pre.textContent = message
-        return alert(message)
-    }
     const response = await fetch('./giphy.gif')
     const clone = response.clone()
     const blob = await response.blob()
