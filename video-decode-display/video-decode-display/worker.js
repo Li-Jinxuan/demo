@@ -4,6 +4,7 @@ importScripts("demuxer_mp4.js", "renderer_2d.js", "renderer_webgl.js", "renderer
 let pendingStatus = null
 
 function setStatus(type, message) {
+    console.log(type, message)
     if (pendingStatus)
     {
         pendingStatus[type] = message
@@ -48,6 +49,7 @@ function renderAnimationFrame() {
 
 // Startup.
 function start({dataUri, rendererName, canvas}) {
+    console.log({dataUri, rendererName, canvas})
     // Pick a renderer to use.
     switch (rendererName)
     {
@@ -68,17 +70,18 @@ function start({dataUri, rendererName, canvas}) {
     // Set up a VideoDecoer.
     const decoder = new VideoDecoder({
         output(frame) {
+            console.log(852852)
             // Update statistics.
-            if (startTime == null)
-            {
-                startTime = performance.now()
-            }
-            else
-            {
-                const elapsed = (performance.now() - startTime) / 1000
-                const fps = ++frameCount / elapsed
-                setStatus("render", `${fps.toFixed(0)} fps`)
-            }
+            // if (startTime == null)
+            // {
+            //     startTime = performance.now()
+            // }
+            // else
+            // {
+            //     const elapsed = (performance.now() - startTime) / 1000
+            //     const fps = ++frameCount / elapsed
+            //     setStatus("render", `${fps.toFixed(0)} fps`)
+            // }
 
             // Schedule the frame to be rendered.
             renderFrame(frame)
@@ -89,7 +92,7 @@ function start({dataUri, rendererName, canvas}) {
     })
 
     // Fetch and demux the media data.
-    const demuxer = new MP4Demuxer(dataUri, {
+    new MP4Demuxer(dataUri, {
         onConfig(config) {
             setStatus("decode", `${config.codec} @ ${config.codedWidth}x${config.codedHeight}`)
             decoder.configure(config)
