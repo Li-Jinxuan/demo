@@ -52,30 +52,27 @@ class pipeline {
                     })
                 },
                 transform(chunk, controller) {
-                    if (this.decoder.state != "closed")
+                    if (chunk.type == "config")
                     {
-                        if (chunk.type == "config")
-                        {
-                            let config = JSON.parse(chunk.config)
-                            VideoDecoder.isConfigSupported(config).then((decoderSupport) => {
-                                if (decoderSupport.supported)
-                                {
-                                    this.decoder.configure(decoderSupport.config)
-                                    self.postMessage({text: 'Decoder successfully configured:\n' + JSON.stringify(decoderSupport.config)})
-                                }
-                                else
-                                {
-                                    self.postMessage({severity: 'fatal', text: 'Config not supported:\n' + JSON.stringify(decoderSupport.config)})
-                                }
+                        let config = JSON.parse(chunk.config)
+                        VideoDecoder.isConfigSupported(config).then((decoderSupport) => {
+                            if (decoderSupport.supported)
+                            {
+                                this.decoder.configure(decoderSupport.config)
+                                self.postMessage({text: 'Decoder successfully configured:\n' + JSON.stringify(decoderSupport.config)})
+                            }
+                            else
+                            {
+                                self.postMessage({severity: 'fatal', text: 'Config not supported:\n' + JSON.stringify(decoderSupport.config)})
+                            }
+                        })
+                            .catch((e) => {
+                                self.postMessage({severity: 'fatal', text: `Configuration error: ${e.message}`})
                             })
-                                .catch((e) => {
-                                    self.postMessage({severity: 'fatal', text: `Configuration error: ${e.message}`})
-                                })
-                        }
-                        else
-                        {
-                            this.decoder.decode(chunk)
-                        }
+                    }
+                    else
+                    {
+                        this.decoder.decode(chunk)
                     }
                 }
             })
@@ -84,7 +81,6 @@ class pipeline {
     EncodeVideoStream(self, config) {
         return new TransformStream({
             start(controller) {
-                console.log(1111)
                 this.seqNo = 0
                 this.keyframeIndex = 0
                 this.deltaframeIndex = 0
@@ -148,7 +144,6 @@ class pipeline {
                 })
             },
             transform(frame, controller) {
-                console.log(48)
                 try
                 {
                     this.encoder.encode(frame)
@@ -163,7 +158,6 @@ class pipeline {
     }
 
     async start() {
-
         self.postMessage({text: 'Start method called.'})
         try
         {
