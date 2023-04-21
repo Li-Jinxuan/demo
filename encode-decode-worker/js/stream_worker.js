@@ -87,7 +87,7 @@ class pipeline {
                 this.pending_outputs = 0
                 this.encoder = new VideoEncoder({
                     output: (chunk, cfg) => {
-                        console.log(144)
+                        console.log(144, cfg.decoderConfig)
                         if (cfg.decoderConfig)
                         {
                             const decoderConfig = JSON.stringify(cfg.decoderConfig)
@@ -104,25 +104,6 @@ class pipeline {
                                 }
                             controller.enqueue(configChunk)
                         }
-                        chunk.temporalLayerId = 0
-                        if (cfg.svc)
-                        {
-                            chunk.temporalLayerId = cfg.svc.temporalLayerId
-                        }
-                        this.seqNo++
-                        if (chunk.type == 'key')
-                        {
-                            this.keyframeIndex++
-                            this.deltaframeIndex = 0
-                        }
-                        else
-                        {
-                            this.deltaframeIndex++
-                        }
-                        this.pending_outputs--
-                        chunk.seqNo = this.seqNo
-                        chunk.keyframeIndex = this.keyframeIndex
-                        chunk.deltaframeIndex = this.deltaframeIndex
                         controller.enqueue(chunk)
                     },
                     error: (e) => {
