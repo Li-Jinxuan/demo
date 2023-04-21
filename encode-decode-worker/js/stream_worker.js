@@ -65,7 +65,8 @@ class pipeline {
                         this.decoder.decode(chunk)
                     }
                 }
-            })
+            }
+        )
     }
 
     EncodeVideoStream(self, config) {
