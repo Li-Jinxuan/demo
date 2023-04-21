@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>ImageDecoder API Demo</title>
+        <meta charset="utf-8"/>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+        <meta name="twitter:card" content="summary_large_image"/>
+        <meta name="twitter:site" content="@tomayac"/>
+        <meta name="twitter:title" content="ImageDecoder API Demo"/>
+        <meta
+                name="twitter:description"
+                content="The new ImageDecoder API provides web authors access to an ImageBitmap of each frame of an image given an arbitrary byte array as input."
+        />
+        <meta
+                name="twitter:image"
+                content="https://cdn.glitch.com/e1b764b8-e537-4b44-9c88-54d005335e5e%2Fscreenshot.png?v=1588256924473"
+        />
+        <!-- import the webpage's stylesheet -->
+        <link rel="stylesheet" href="/style.css"/>
+
+        <!-- import the webpage's javascript file -->
+        <script src="/script.js" defer></script>
+    </head>
+    <body>
+        <h1>ImageDecoder API Demo</h1>
+        <p>
+            For background on this demo, please see the
+            <a
+                    href="https://github.com/dalecurtis/image-decoder-api/blob/master/explainer.md"
+            >ImageDecoder API Explainer</a
+            >.
+        </p>
+        <h2>
+            Options:
+        </h2>
+        <form>
+            <div>
+                <label class="label" for="gif">GIF:</label>
+                <select hidden id="gif">
+                    <option
+                            value="https://cdn.glitch.com/e1b764b8-e537-4b44-9c88-54d005335e5e%2Fnail.gif?v=1588243007138"
+                    >Nail
+                    </option
+                    >
+                    <option
+                            value="https://cdn.glitch.com/e1b764b8-e537-4b44-9c88-54d005335e5e%2Ftest-gif.gif?v=1588243789708"
+                    >Kirby
+                    </option
+                    >
+                    <option
+                            selected
+                            value="https://cdn.glitch.com/e1b764b8-e537-4b44-9c88-54d005335e5e%2Fgiphy.gif?v=1588252557131"
+                    >CSS
+                    </option
+                    >
+                </select>
+            </div>
+            <div>
+                <label class="label" for="speed">Speed:</label>
+                <span>Slow</span>
+                <input
+                        id="speed"
+                        type="range"
+                        min="0.25"
+                        max="4"
+                        value="1"
+                        step="0.1"
+                />
+                <span>Fast</span>
+            </div>
+            <div>
+                <fieldset>
+                    <legend>
+                        Effect:
+                    </legend>
+                    <label>
+                        <input id="bw" checked name="effect" type="radio"/>
+                        Black &amp; White
+                    </label>
+                    <label>
+                        <input id="rand" name="effect" type="radio"/>
+                        Random Noise
+                    </label>
+                </fieldset>
+            </div>
+        </form>
+        <h2>
+            Stats:
+        </h2>
+        <pre></pre>
+
+        <div class="wrapper">
+            <div>
+                <h2>Original <code>&lt;img&gt;</code>:</h2>
+                <img/>
+            </div>
+            <div>
+                <h2><code>ImageDecode</code>d drawn on <code>&lt;canvas&gt;</code>:</h2>
+                <canvas></canvas>
+            </div>
+        </div>
+        <footer>
+            You can 💻 <a href="https://glitch.com/edit/#!/imagedecoder">edit</a> this
+            demo on Glitch. Made by 👨‍💻
+            <a href="https://twitter.com/tomayac">@tomayac</a>.
+        </footer>
+    </body>
+</html>

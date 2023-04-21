@@ -1,0 +1,62 @@
+body {
+  font-family: helvetica, arial, sans-serif;
+  margin: 2em;
+}
+
+h1,
+h2 {
+  white-space: nowrap;
+}
+
+h1 {
+  color: darkblue;
+}
+
+h2 {
+  color: blue;
+}
+
+img,
+canvas {
+  display: block;
+}
+
+code {
+  font-family: monospace, monospace;
+}
+
+pre {
+  font-family: helvetica, arial, sans-serif;
+}
+
+fieldset {
+  display: inline;
+  border: none;
+  padding: 0;
+  margin: 0;
+}
+
+legend {
+  float: left;
+}
+
+label.label,
+legend {
+  font-weight: bold;
+}
+
+form,
+.wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+}
+
+form > div,
+.wrapper > div {
+  margin-right: 0.5rem;
+}
+
+footer {
+  margin-top: 2rem;
+}
