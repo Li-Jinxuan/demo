@@ -47,7 +47,6 @@ class pipeline {
                     this.decoder = new VideoDecoder({
                         output: frame => controller.enqueue(frame),
                         error: (e) => {
-                            self.postMessage({severity: 'fatal', text: `Init Decoder error: ${e.message}`})
                         }
                     })
                 },
@@ -55,20 +54,11 @@ class pipeline {
                     if (chunk.type == "config")
                     {
                         let config = JSON.parse(chunk.config)
-                        VideoDecoder.isConfigSupported(config).then((decoderSupport) => {
-                            if (decoderSupport.supported)
-                            {
+                        VideoDecoder.isConfigSupported(config).then(
+                            (decoderSupport) => {
                                 this.decoder.configure(decoderSupport.config)
-                                self.postMessage({text: 'Decoder successfully configured:\n' + JSON.stringify(decoderSupport.config)})
                             }
-                            else
-                            {
-                                self.postMessage({severity: 'fatal', text: 'Config not supported:\n' + JSON.stringify(decoderSupport.config)})
-                            }
-                        })
-                            .catch((e) => {
-                                self.postMessage({severity: 'fatal', text: `Configuration error: ${e.message}`})
-                            })
+                        )
                     }
                     else
                     {
@@ -87,7 +77,6 @@ class pipeline {
                         if (cfg.decoderConfig)
                         {
                             const decoderConfig = JSON.stringify(cfg.decoderConfig)
-                            self.postMessage({text: 'Configuration: ' + decoderConfig})
                             const configChunk =
                                 {
                                     type: "config",
@@ -103,33 +92,17 @@ class pipeline {
                         controller.enqueue(chunk)
                     },
                     error: (e) => {
-                        self.postMessage({severity: 'fatal', text: `Encoder error: ${e.message}`})
                     }
                 })
-                VideoEncoder.isConfigSupported(config).then((encoderSupport) => {
-                    if (encoderSupport.supported)
-                    {
+                VideoEncoder.isConfigSupported(config).then(
+                    (encoderSupport) => {
                         this.encoder.configure(encoderSupport.config)
-                        self.postMessage({text: 'Encoder successfully configured:\n' + JSON.stringify(encoderSupport.config)})
                     }
-                    else
-                    {
-                        self.postMessage({severity: 'fatal', text: 'Config not supported:\n' + JSON.stringify(encoderSupport.config)})
-                    }
-                }).catch((e) => {
-                    self.postMessage({severity: 'fatal', text: `Configuration error: ${e.message}`})
-                })
+                )
             },
             transform(frame, controller) {
-                try
-                {
-                    this.encoder.encode(frame)
-                }
-                catch (e)
-                {
-                    self.postMessage({severity: 'fatal', text: 'Encoder Error: ' + e.message})
-                }
-                frame.close()
+                this.encoder.encode(frame)
+                // frame.close()
             }
         })
     }
