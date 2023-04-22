@@ -38,6 +38,7 @@ class pipeline {
         this.inputStream = eventData.streams.input
         this.outputStream = eventData.streams.output
         this.config = eventData.config
+        console.log(this.config)
     }
 
     DecodeVideoStream(self) {

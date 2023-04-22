@@ -72,16 +72,16 @@ function start({dataUri, rendererName, canvas}) {
         output(frame) {
             console.log(852852)
             // Update statistics.
-            // if (startTime == null)
-            // {
-            //     startTime = performance.now()
-            // }
-            // else
-            // {
-            //     const elapsed = (performance.now() - startTime) / 1000
-            //     const fps = ++frameCount / elapsed
-            //     setStatus("render", `${fps.toFixed(0)} fps`)
-            // }
+            if (startTime == null)
+            {
+                startTime = performance.now()
+            }
+            else
+            {
+                const elapsed = (performance.now() - startTime) / 1000
+                const fps = ++frameCount / elapsed
+                setStatus("render", `${fps.toFixed(0)} fps`)
+            }
 
             // Schedule the frame to be rendered.
             renderFrame(frame)

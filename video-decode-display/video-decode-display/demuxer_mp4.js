@@ -51,6 +51,8 @@ class MP4Demuxer {
         this.#file.onReady = this.#onReady.bind(this)
         this.#file.onSamples = this.#onSamples.bind(this)
 
+        this.isTest = 0
+
         // Fetch the file and pipe the data through.
         const fileSink = new MP4FileSink(this.#file, setStatus)
         console.log(fileSink)
@@ -58,7 +60,7 @@ class MP4Demuxer {
             // highWaterMark should be large enough for smooth streaming, but lower is
             // better for memory usage.
             response.body.pipeTo(new WritableStream(fileSink, {highWaterMark: 2}))
-            console.log(5555)
+            console.log(56446)
         })
     }
 
@@ -109,15 +111,21 @@ class MP4Demuxer {
 
     #onSamples(track_id, ref, samples) {
         console.log(456456, track_id, ref, samples)
+        console.log('ttttttt', this.isTest)
         // Generate and emit an EncodedVideoChunk for each demuxed sample.
         for (const sample of samples)
         {
-            this.#onChunk(new EncodedVideoChunk({
-                type: sample.is_sync ? "key" : "delta",
-                timestamp: 1e6 * sample.cts / sample.timescale,
-                duration: 1e6 * sample.duration / sample.timescale,
-                data: sample.data
-            }))
+            // if (this.isTest <= 5)
+            // {
+                this.#onChunk(new EncodedVideoChunk({
+                    type: sample.is_sync ? "key" : "delta",
+                    timestamp: 1e6 * sample.cts / sample.timescale,
+                    duration: 1e6 * sample.duration / sample.timescale,
+                    data: sample.data
+                }))
+
+                this.isTest += 1
+            // }
         }
     }
 }
