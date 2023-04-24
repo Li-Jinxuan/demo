@@ -1,0 +1,66 @@
+# request:
+POST /index/api/webrtc?app=rtp&stream=31EFA15B&type=play
+# header:
+Accept : */*
+Content-Length : 1713
+Host : 10.151.0.88:11080
+# content:
+v=0
+o=MetaRtc 179550811112 2 IN IP4 0.0.0.0
+s=MetaRtcSession
+t=0 0
+a=ice-lite
+a=group:BUNDLE 0 1
+a=msid-semantic: WMS rtp/31EFA15B
+m=audio 9 UDP/TLS/RTP/SAVPF 111
+c=IN IP4 0.0.0.0
+a=ice-ufrag:1z6c
+a=ice-pwd:7s22is55515510905261ou704jbq7m50
+a=fingerprint:sha-256 C1:5A:A0:DF:C3:17:99:96:C7:00:5A:FC:2A:8C:54:EF:48:AD:3F:B9:DD:08:6B:F3:FC:26:29:75:A1:2C:05:06
+a=setup:actpass
+a=mid:0
+a=extmap:3 http://www.ietf.org/id/draft-holmer-rmcat-transport-wide-cc-extensions-01
+a=recvonly
+a=rtcp-mux
+a=rtcp-rsize
+a=rtpmap:111 opus/48000/2
+a=rtcp-fb:111 transport-cc
+a=fmtp:111 minptime=10;useinbandfec=1
+a=ssrc:75595885 cname:f314b3091875h81g
+a=ssrc:75595885 msid:- i195j378-4vy8-k0wa-6007-61ay47xc17s2
+a=ssrc:75595885 mslabel:-
+a=ssrc:75595885 label:i195j378-4vy8-k0wa-6007-61ay47xc17s2
+m=video 9 UDP/TLS/RTP/SAVPF 125 126 114
+c=IN IP4 0.0.0.0
+a=ice-ufrag:1z6c
+a=ice-pwd:7s22is55515510905261ou704jbq7m50
+a=fingerprint:sha-256 C1:5A:A0:DF:C3:17:99:96:C7:00:5A:FC:2A:8C:54:EF:48:AD:3F:B9:DD:08:6B:F3:FC:26:29:75:A1:2C:05:06
+a=setup:actpass
+a=mid:1
+a=extmap:3 http://www.ietf.org/id/draft-holmer-rmcat-transport-wide-cc-extensions-01
+a=recvonly
+a=rtcp-mux
+a=rtcp-rsize
+a=rtpmap:125 H264/90000
+a=rtcp-fb:125 transport-cc
+a=rtcp-fb:125 nack
+a=rtcp-fb:125 nack pli
+a=fmtp:125 level-asymmetry-allowed=1;packetization-mode=1;profile-level-id=42e01f
+a=rtpmap:126 H265/90000
+a=rtcp-fb:126 transport-cc
+a=rtcp-fb:126 nack
+a=rtcp-fb:126 nack pli
+a=fmtp:126 level-asymmetry-allowed=1;packetization-mode=1;profile-level-id=42e01f
+a=rtpmap:114 red/90000
+a=ssrc:75595886 cname:f314b3091875h81g
+a=ssrc:75595886 msid:- kk6432wn-2zp0-60d9-5138-gat6h2570w8d
+a=ssrc:75595886 mslabel:-
+a=ssrc:75595886 label:kk6432wn-2zp0-60d9-5138-gat6h2570w8d
+
+# response:
+{
+	"code" : 0,
+	"id" : "zlm_186",
+	"sdp" : "v=0\r\no=MetaRtc 179550811112 2 IN IP4 10.151.0.88\r\ns=MetaRtcSession\r\nt=0 0\r\na=group:BUNDLE 0 1\r\na=msid-semantic: WMS rtp/31EFA15B\r\nm=audio 8000 UDP/TLS/RTP/SAVPF 111\r\nc=IN IP4 10.151.0.88\r\na=rtcp:8000 IN IP4 10.151.0.88\r\na=ice-ufrag:zlm_186\r\na=ice-pwd:sOlcmohqB7k0o9LjdeyPSH5P\r\na=fingerprint:sha-256 42:F6:9C:E5:80:57:BB:CE:D5:CC:4D:4A:31:CC:3D:24:F2:98:AD:74:4F:64:41:A7:6D:32:F6:4B:E2:49:E6:C4\r\na=setup:passive\r\na=mid:0\r\na=ice-lite\r\na=extmap:3 http://www.ietf.org/id/draft-holmer-rmcat-transport-wide-cc-extensions-01\r\na=inactive\r\na=rtcp-mux\r\na=rtpmap:111 opus/48000/2\r\na=rtcp-fb:111 transport-cc\r\na=fmtp:111 minptime=10;useinbandfec=1\r\na=msid:zlmediakit-mslabel zlmediakit-label\r\na=ssrc:2 cname:zlmediakit-rtp\r\na=ssrc:2 msid:zlmediakit-mslabel zlmediakit-label\r\na=ssrc:2 mslabel:zlmediakit-mslabel\r\na=ssrc:2 label:zlmediakit-label\r\na=candidate:udpcandidate 1 udp 110 10.151.0.88 8000 typ host\r\na=candidate:tcpcandidate 1 tcp 105 10.151.0.88 8000 typ host tcptype passive\r\nm=video 8000 UDP/TLS/RTP/SAVPF 126\r\nc=IN IP4 10.151.0.88\r\na=rtcp:8000 IN IP4 10.151.0.88\r\na=ice-ufrag:zlm_186\r\na=ice-pwd:sOlcmohqB7k0o9LjdeyPSH5P\r\na=fingerprint:sha-256 42:F6:9C:E5:80:57:BB:CE:D5:CC:4D:4A:31:CC:3D:24:F2:98:AD:74:4F:64:41:A7:6D:32:F6:4B:E2:49:E6:C4\r\na=setup:passive\r\na=mid:1\r\na=ice-lite\r\na=extmap:3 http://www.ietf.org/id/draft-holmer-rmcat-transport-wide-cc-extensions-01\r\na=sendonly\r\na=rtcp-mux\r\na=rtpmap:126 H265/90000\r\na=rtcp-fb:126 nack\r\na=rtcp-fb:126 nack pli\r\na=rtcp-fb:126 transport-cc\r\na=fmtp:126 level-asymmetry-allowed=1;packetization-mode=1;profile-level-id=42e01f\r\na=msid:zlmediakit-mslabel zlmediakit-label\r\na=ssrc:1 cname:zlmediakit-rtp\r\na=ssrc:1 msid:zlmediakit-mslabel zlmediakit-label\r\na=ssrc:1 mslabel:zlmediakit-mslabel\r\na=ssrc:1 label:zlmediakit-label\r\na=candidate:udpcandidate 1 udp 110 10.151.0.88 8000 typ host\r\na=candidate:tcpcandidate 1 tcp 105 10.151.0.88 8000 typ host tcptype passive\r\n",
+	"type" : "answer"
+}
