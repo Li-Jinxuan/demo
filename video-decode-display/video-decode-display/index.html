@@ -81,7 +81,7 @@
 
             // Worker setup.
             function start() {
-                const dataUri = "../data/Big_Buck_Bunny_360_10s_1MB.mp4"
+                const dataUri = "../data/test_h265.mp4"
                 const rendererName = document.querySelector("input[name=\"renderer\"]:checked").value
                 const canvas = document.querySelector("canvas").transferControlToOffscreen()
                 const worker = new Worker("./worker.js")
