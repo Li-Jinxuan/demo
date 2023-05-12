@@ -99,10 +99,23 @@ async def javascript(request):
     return web.Response(content_type="application/javascript", text=content)
 
 
-""" 按块读取 """
+async def javascript2(request):
+    content = open(os.path.join(ROOT, "example-dist.js"), "r", encoding="utf-8").read()
+    return web.Response(content_type="application/javascript", text=content)
 
 
-def read_file_by_chunk(file, chunk_size=1024*512):
+async def wasm(request):
+    content = open(os.path.join(ROOT, "missile-dec.wasm"), "rb").read()
+    return web.Response(content_type="application/wasm", body=content)
+
+
+async def video265(request):
+    content = open(os.path.join(ROOT, "test.265"), "rb").read()
+    return web.Response(body=content)
+
+
+# """ 按块读取 """
+def read_file_by_chunk(file, chunk_size=1024 * 512):
     with open(file, mode='rb') as f:
         while True:
             chunk = f.read(chunk_size)
@@ -137,7 +150,7 @@ async def offer(request):
         for chunk in chunks:
             channel.send(chunk)
 
-        channel.send("done")
+        # channel.send("done")
 
         # @channel.on("message")
         # def on_message(message):
@@ -227,6 +240,9 @@ if __name__ == "__main__":
     app.on_shutdown.append(on_shutdown)
     app.router.add_get("/", index)
     app.router.add_get("/client.js", javascript)
+    app.router.add_get("/example-dist.js", javascript2)
+    app.router.add_get("/missile-dec.wasm", wasm)
+    app.router.add_get("/test.265", video265)
     app.router.add_post("/offer", offer)
     web.run_app(
         app, access_log=None, host=args.host, port=args.port, ssl_context=ssl_context

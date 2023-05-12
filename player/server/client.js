@@ -103,6 +103,15 @@ function negotiate() {
     });
 }
 
+const appendBuffer = function(buffer1, buffer2) {
+    var tmp = new Uint8Array(buffer1.byteLength + buffer2.byteLength);
+    tmp.set(new Uint8Array(buffer1), 0);
+    tmp.set(new Uint8Array(buffer2), buffer1.byteLength);
+    return tmp.buffer;
+};
+
+let fullData = new Uint8Array()
+
 function start() {
     document.getElementById('start').style.display = 'none';
 
@@ -139,6 +148,14 @@ function start() {
             dataChannelLog.textContent += '< ' + evt.data + '\n';
 
             console.log(typeof evt.data, evt.data)
+
+            fullData = appendBuffer(fullData, evt.data)
+            console.log(fullData, fullData.byteLength, fullData.byteLength === 8165416)
+            if (fullData.byteLength === 8165416) {
+                window.startPlay(fullData)
+            }
+
+            // window.startPlay(ev)
             // if (evt.data.substring(0, 4) === 'pong') {
             //     var elapsed_ms = current_stamp() - parseInt(evt.data.substring(5), 10);
             //     dataChannelLog.textContent += ' RTT ' + elapsed_ms + ' ms\n';
