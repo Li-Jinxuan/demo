@@ -81,11 +81,11 @@
 
             // Worker setup.
             function start() {
-                const dataUri = "../data/test_h265.mp4"
+                const dataUri = "../data/output.mp4"
                 const rendererName = document.querySelector("input[name=\"renderer\"]:checked").value
                 const canvas = document.querySelector("canvas").transferControlToOffscreen()
                 const worker = new Worker("./worker.js")
-                worker.addEventListener("message", setStatus)
+                // worker.addEventListener("message", setStatus)
                 worker.postMessage({dataUri, rendererName, canvas}, [canvas])
             }
         </script>
