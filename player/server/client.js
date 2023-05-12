@@ -150,9 +150,10 @@ function start() {
             console.log(typeof evt.data, evt.data)
 
             fullData = appendBuffer(fullData, evt.data)
-            console.log(fullData, fullData.byteLength, fullData.byteLength === 8165416)
-            if (fullData.byteLength === 8165416) {
-                window.startPlay(fullData)
+            console.log(fullData, fullData.byteLength, fullData.byteLength === 12612897)
+            if (fullData.byteLength === 12612897) {
+                let u8a = new Uint8Array(fullData);
+                window.startPlay(u8a)
             }
 
             // window.startPlay(ev)

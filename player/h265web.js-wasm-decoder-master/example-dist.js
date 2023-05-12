@@ -15897,33 +15897,32 @@ var startPlay = function startPlay(data) {
     rawParserObj = new _index["default"].CRawParser();
     var fileStart = 0;
     var startFetch = false;
-    // networkInterval = window.setInterval(() => {
-    //   if (!startFetch)
-    //   {
-    //     startFetch = true
-    //     fetch(url265).then(function(response) {
-    //       let pump = function(reader) {
-    //         return reader.read().then(function(result) {
-    //           if (result.done)
-    //           {
-    //             window.clearInterval(networkInterval)
-    //             return
-    //           }
-    //           let chunk = result.value
-    //           rawParserObj.appendStreamRet(chunk)
-    //           return pump(reader)
-    //         })
-    //       }
-    //       return pump(response.body.getReader())
-    //     })
-    //       .catch(function(error) {
-    //         console.log(error)
-    //       })
-    //   }
-    // }, 1)
+    networkInterval = window.setInterval(function () {
+      if (!startFetch) {
+        startFetch = true;
+        fetch(url265).then(function (response) {
+          var pump = function pump(reader) {
+            return reader.read().then(function (result) {
+              if (result.done) {
+                window.clearInterval(networkInterval);
+                return;
+              }
+              var chunk = result.value;
+              console.log(result.value);
+              rawParserObj.appendStreamRet(chunk);
+              return pump(reader);
+            });
+          };
+          return pump(response.body.getReader());
+        })["catch"](function (error) {
+          console.log(error);
+        });
+      }
+    }, 1);
 
-    console.log(3333, data2);
-    rawParserObj.appendStreamRet(data2);
+    // console.log(3333, data2)
+    // rawParserObj.appendStreamRet(data2)
+
     var ptsIdx = 0;
     timerFeed = window.setInterval(function () {
       var nalBuf = rawParserObj.nextNalu(); // nal

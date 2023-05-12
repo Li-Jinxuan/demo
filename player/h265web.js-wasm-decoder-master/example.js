@@ -48,33 +48,34 @@ const startPlay = (data) => {
     rawParserObj = new MissileEngineDecoder.CRawParser()
     var fileStart = 0
     var startFetch = false
-    // networkInterval = window.setInterval(() => {
-    //   if (!startFetch)
-    //   {
-    //     startFetch = true
-    //     fetch(url265).then(function(response) {
-    //       let pump = function(reader) {
-    //         return reader.read().then(function(result) {
-    //           if (result.done)
-    //           {
-    //             window.clearInterval(networkInterval)
-    //             return
-    //           }
-    //           let chunk = result.value
-    //           rawParserObj.appendStreamRet(chunk)
-    //           return pump(reader)
-    //         })
-    //       }
-    //       return pump(response.body.getReader())
-    //     })
-    //       .catch(function(error) {
-    //         console.log(error)
-    //       })
-    //   }
-    // }, 1)
+    networkInterval = window.setInterval(() => {
+      if (!startFetch)
+      {
+        startFetch = true
+        fetch(url265).then(function(response) {
+          let pump = function(reader) {
+            return reader.read().then(function(result) {
+              if (result.done)
+              {
+                window.clearInterval(networkInterval)
+                return
+              }
+              let chunk = result.value
+              console.log(result.value)
+              rawParserObj.appendStreamRet(chunk)
+              return pump(reader)
+            })
+          }
+          return pump(response.body.getReader())
+        })
+          .catch(function(error) {
+            console.log(error)
+          })
+      }
+    }, 1)
 
-    console.log(3333, data2)
-    rawParserObj.appendStreamRet(data2)
+    // console.log(3333, data2)
+    // rawParserObj.appendStreamRet(data2)
 
     var ptsIdx = 0
     timerFeed = window.setInterval(() => {

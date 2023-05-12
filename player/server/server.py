@@ -146,7 +146,7 @@ async def offer(request):
 
     @pc.on("datachannel")
     def on_datachannel(channel):
-        chunks = read_file_by_chunk('test.265')
+        chunks = read_file_by_chunk('test_h265.265')
         for chunk in chunks:
             channel.send(chunk)
 
@@ -242,7 +242,7 @@ if __name__ == "__main__":
     app.router.add_get("/client.js", javascript)
     app.router.add_get("/example-dist.js", javascript2)
     app.router.add_get("/missile-dec.wasm", wasm)
-    app.router.add_get("/test.265", video265)
+    # app.router.add_get("/test.265", video265)
     app.router.add_post("/offer", offer)
     web.run_app(
         app, access_log=None, host=args.host, port=args.port, ssl_context=ssl_context
