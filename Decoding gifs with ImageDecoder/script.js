@@ -77,6 +77,7 @@ const renderImage = async (imageFrame, track) => {
     {
         imageIndex = 0
     }
+    console.log(imageIndex)
     const nextImageFrame = await imageDecoder.decode({frameIndex: ++imageIndex})
     window.setTimeout(() => {
         renderImage(nextImageFrame, track)
@@ -88,7 +89,10 @@ const decodeImage = async imageByteStream => {
         data: imageByteStream,
         type: 'image/gif',
     })
+    console.log(imageIndex)
     const imageFrame = await imageDecoder.decode({frameIndex: imageIndex})
+    console.log(imageFrame)
+
     const track = imageDecoder.tracks.selectedTrack
     await renderImage(imageFrame, track)
     pre.textContent = `

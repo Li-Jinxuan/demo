@@ -94,6 +94,7 @@ function start({dataUri, rendererName, canvas}) {
     // Fetch and demux the media data.
     new MP4Demuxer(dataUri, {
         onConfig(config) {
+            console.log('cccccccccccc', config)
             setStatus("decode", `${config.codec} @ ${config.codedWidth}x${config.codedHeight}`)
             decoder.configure(config)
         },

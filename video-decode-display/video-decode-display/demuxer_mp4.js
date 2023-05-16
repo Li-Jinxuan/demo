@@ -69,8 +69,10 @@ class MP4Demuxer {
     #description(track) {
         console.log(55555, track)
         const trak = this.#file.getTrackById(track.id)
+        console.log(4545, trak)
         for (const entry of trak.mdia.minf.stbl.stsd.entries)
         {
+            console.log('eeeeeee', entry)
             if (entry.avcC || entry.hvcC)
             {
                 const stream = new DataStream(undefined, 0, DataStream.BIG_ENDIAN)
@@ -117,14 +119,14 @@ class MP4Demuxer {
         {
             // if (this.isTest <= 5)
             // {
-                this.#onChunk(new EncodedVideoChunk({
-                    type: sample.is_sync ? "key" : "delta",
-                    timestamp: 1e6 * sample.cts / sample.timescale,
-                    duration: 1e6 * sample.duration / sample.timescale,
-                    data: sample.data
-                }))
+            this.#onChunk(new EncodedVideoChunk({
+                type: sample.is_sync ? "key" : "delta",
+                timestamp: 1e6 * sample.cts / sample.timescale,
+                duration: 1e6 * sample.duration / sample.timescale,
+                data: sample.data
+            }))
 
-                this.isTest += 1
+            this.isTest += 1
             // }
         }
     }
